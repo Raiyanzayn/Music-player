@@ -1,0 +1,178 @@
+class Node {
+    String song;
+    Node next;
+    Node prev;
+}
+
+public class PlaylistManager {
+
+    static void addNodeFromFile(Node start) throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader("playlist.txt"));
+        String line;
+        while ((line = reader.readLine()) != null) {
+            addNodeFile(start, line);
+        }
+        System.out.println("Playlist Added");
+        reader.close();
+    }
+
+    static void deleteBySearch(Node start) {
+        Scanner scanner = new Scanner(System.in);
+        printList(start);
+        System.out.print("\nChoose song you wish to delete: ");
+        String song = scanner.nextLine();
+        int flag = 0;
+        Node temp = start;
+        while (temp != null) {
+            if (temp.song.equals(song)) {
+                System.out.println("#Song Found");
+                deleteFile(temp.song);
+                temp.prev.next = temp.next;
+                temp.next.prev = temp.prev;
+                flag++;
+                break;
+            } else {
+                temp = temp.next;
+            }
+        }
+        if (flag == 0) {
+            System.out.println("#Song Not found");
+        }
+    }
+
+    static void deleteMenu(Node start) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Which type of delete do you want?");
+        System.out.println("1. By Search");
+        System.out.println("2. By Position");
+        int choice = scanner.nextInt();
+        switch (choice) {
+            case 1:
+                deleteBySearch(start);
+                break;
+            case 2:
+                System.out.print("\nEnter the position of the song: ");
+                int pos = scanner.nextInt();
+                delPos(start, pos - 1);
+                break;
+        }
+    }
+
+    static void printList(Node start) {
+        Node temp = start;
+        while (temp != null) {
+            System.out.println(temp.song);
+            temp = temp.next;
+        }
+    }
+
+    static void addNodeFile(Node start, String song) {
+        // Implementation of add_node_file method
+    }
+
+    static void deleteFile(String song) {
+        // Implementation of delete_file method
+    }
+
+    static void delPos(Node start, int pos) {
+        // Implementation of del_pos method
+    }
+
+    static void create() {
+        // Implementation of create method
+    }
+
+    static void addNode(Node start) {
+        // Implementation of add_node method
+    }
+
+    static void search(Node start) {
+        // Implementation of search1 method
+    }
+
+    static void play(Node start) {
+        // Implementation of play method
+    }
+
+    static void recent() {
+        // Implementation of recent method
+    }
+
+    static void topElement() {
+        // Implementation of topelement method
+    }
+
+    static void sort(Node start) {
+        // Implementation of sort method
+    }
+
+    public static void main(String[] args) throws IOException {
+        Scanner scanner = new Scanner(System.in);
+        int choice;
+        Node start = new Node();
+        System.out.println("\t\t\t**WELCOME**");
+        System.out.println("**please use '_' for space.");
+        System.out.print("\nEnter your playlist name: ");
+        scanner.nextLine(); // Consume newline left-over from previous input
+        start.song = scanner.nextLine();
+        start.next = null;
+        Node hold = start;
+        create();
+
+        do {
+            System.out.println("\n1. Add New Song");
+            System.out.println("2. Delete Song");
+            System.out.println("3. Display Entered Playlist");
+            System.out.println("4. Total Songs");
+            System.out.println("5. Search Song");
+            System.out.println("6. Play Song");
+            System.out.println("7. Recently Played List");
+            System.out.println("8. Last Played");
+            System.out.println("9. Sorted playlist");
+            System.out.println("10. Add From File");
+            System.out.println("11. Exit");
+            System.out.print("\nEnter your choice: ");
+            choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    addNode(start);
+                    break;
+                case 2:
+                    deleteMenu(start);
+                    break;
+                case 3:
+                    printList(start);
+                    break;
+                case 4:
+                    countNodes(hold);
+                    break;
+                case 5:
+                    search(start);
+                    break;
+                case 6:
+                    play(start);
+                    break;
+                case 7:
+                    recent();
+                    break;
+                case 8:
+                    topElement();
+                    break;
+                case 9:
+                    sort(start.next);
+                    printList(start);
+                    break;
+                case 10:
+                    addNodeFromFile(start);
+                    break;
+                case 11:
+                    System.exit(0);
+            }
+        } while (choice != 11);
+    }
+
+    static void countNodes(Node start) {
+        // Implementation of count_nodes method
+    }
+}
